@@ -1,0 +1,71 @@
+﻿body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-image: linear-gradient(45deg, cyan, yellow);
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+form#form1 {
+    width: 100%;
+    max-width: 400px;
+}
+
+.Informacoes_Login {
+    background-color: rgba(0, 0, 0, 0.9);
+    padding: 40px 30px;
+    border-radius: 15px;
+    color: #fff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+}
+
+    .Informacoes_Login h1 {
+        text-align: center;
+        font-size: 20px;
+        margin-bottom: 30px;
+    }
+
+    .Informacoes_Login p {
+        margin: 10px 0 5px;
+    }
+
+.input-text {
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    width: 100%;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.Button {
+    display: flex;
+    justify-content: center;
+}
+
+.btn-login {
+    background-color: dodgerblue !important;
+    border: none;
+    padding: 12px;
+    width: 100%;
+    border-radius: 10px;
+    color: white;
+    font-size: 15px;
+    transition: background 0.3s;
+}
+
+    .btn-login:hover {
+        background-color: deepskyblue !important;
+        cursor: pointer;
+    }
+
+.div_esqueci_senha {
+    text-align: center;
+    margin-top: 15px;
+}
