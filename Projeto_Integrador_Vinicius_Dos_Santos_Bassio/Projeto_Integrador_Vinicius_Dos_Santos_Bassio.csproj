@@ -67,10 +67,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="TelaPrincipal.css" />
-    <Content Include="View\CadastroCidade.html" />
-    <Content Include="View\CadastroPaciente.html" />
-    <Content Include="View\CadastroUsuario.html" />
+    <Content Include="View\TelaPrincipal.css" />
+    <Content Include="View\CadastroUsuario.aspx" />
     <Content Include="View\TelaEsqueciSenha.aspx" />
     <Content Include="View\TelaLogin.aspx" />
     <Content Include="View\TelaLogin.css" />
@@ -79,6 +77,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="View\CadastroUsuario.aspx.cs">
+      <DependentUpon>CadastroUsuario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\CadastroUsuario.aspx.designer.cs">
+      <DependentUpon>CadastroUsuario.aspx</DependentUpon>
+    </Compile>
     <Compile Include="View\TelaEsqueciSenha.aspx.cs">
       <DependentUpon>TelaEsqueciSenha.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
