@@ -18,28 +18,26 @@ namespace Projeto_Integrador_Vinicius_Dos_Santos_Bassio.View
         private void VerificarPermissao()
         {
             // Garante que a sessão existe para evitar NullReferenceException
-            if (Session["IdUsuario"] == null)
+            if (Session["idUsuario"] == null)
             {
                 menuAdmin.Visible = false;
                 return;
             }
 
             int idUsuario;
-            if (!int.TryParse(Session["IdUsuario"].ToString(), out idUsuario))
+            if (!int.TryParse(Session["idUsuario"].ToString(), out idUsuario))
             {
                 menuAdmin.Visible = false;
                 return;
             }
 
-            // Conexão com o banco
             string connStr = ConfigurationManager.ConnectionStrings["ProjetoIntegradorConnection"].ConnectionString;
 
             using (SqlConnection conn = new SqlConnection(connStr))
             {
                 conn.Open();
 
-                // Consulta para buscar o idgrupousuario
-                string sql = "SELECT idgrupousuario FROM usuario WHERE idusuario = @idusuario";
+                string sql = "SELECT id_grupo_usuario FROM usuario WHERE id_usuario = @idusuario";
                 using (SqlCommand cmd = new SqlCommand(sql, conn))
                 {
                     cmd.Parameters.AddWithValue("@idusuario", idUsuario);

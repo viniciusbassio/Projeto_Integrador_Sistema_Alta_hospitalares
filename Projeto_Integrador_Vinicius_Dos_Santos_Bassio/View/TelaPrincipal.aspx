@@ -12,7 +12,7 @@
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">Sistema de Alta</a>
+                <a class="navbar-brand" href="TelaPrincipal.aspx">Sistema de Alta</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Alternar navegação">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -48,12 +48,11 @@
                             <ul class="dropdown-menu" aria-labelledby="dropdownAdmin">
                                 <li><h6 class="dropdown-header">Usuários</h6></li>
                                 <li><a class="dropdown-item" href="#">Listar Usuários</a></li>
-                                <li><a class="dropdown-item" href="#">Cadastrar Usuário</a></li>
+                                <li><a class="dropdown-item" href="CadastroUsuario.aspx">Cadastrar Usuário</a></li>
                                 <li><a class="dropdown-item" href="#">Editar Usuário</a></li>
                                 <li><a class="dropdown-item" href="#">Excluir Usuário</a></li>
                             </ul>
                         </li>
-
                     </ul>
                 </div>
             </div>
