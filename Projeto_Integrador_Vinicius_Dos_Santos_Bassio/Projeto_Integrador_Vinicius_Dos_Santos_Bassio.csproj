@@ -67,22 +67,103 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="View\ALTA.aspx" />
+    <Content Include="View\PTA_Fisioterapia.aspx" />
+    <Content Include="View\PTA_MEDICO.aspx" />
+    <Content Include="View\CadastroGrupoUsuario.aspx" />
+    <Content Include="View\CadastroPaciente.aspx" />
+    <Content Include="View\PTA_Enfermeiro.aspx" />
+    <Content Include="View\PTA_Nutricao.aspx" />
+    <Content Include="View\PTA_Psicologia.aspx" />
+    <Content Include="View\PTA_Servico_Social.aspx" />
+    <Content Include="View\PTS.aspx" />
     <Content Include="View\TelaPrincipal.css" />
     <Content Include="View\CadastroUsuario.aspx" />
     <Content Include="View\TelaEsqueciSenha.aspx" />
     <Content Include="View\TelaLogin.aspx" />
     <Content Include="View\TelaLogin.css" />
     <Content Include="View\TelaPrincipal.aspx" />
+    <Content Include="View\TelaRedefinirSenha.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="View\ALTA.aspx.cs">
+      <DependentUpon>ALTA.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\ALTA.aspx.designer.cs">
+      <DependentUpon>ALTA.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\PTA_Fisioterapia.aspx.cs">
+      <DependentUpon>PTA_Fisioterapia.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\PTA_Fisioterapia.aspx.designer.cs">
+      <DependentUpon>PTA_Fisioterapia.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\PTA_MEDICO.aspx.cs">
+      <DependentUpon>PTA_MEDICO.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\PTA_MEDICO.aspx.designer.cs">
+      <DependentUpon>PTA_MEDICO.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\CadastroGrupoUsuario.aspx.cs">
+      <DependentUpon>CadastroGrupoUsuario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\CadastroGrupoUsuario.aspx.designer.cs">
+      <DependentUpon>CadastroGrupoUsuario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\CadastroPaciente.aspx.cs">
+      <DependentUpon>CadastroPaciente.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\CadastroPaciente.aspx.designer.cs">
+      <DependentUpon>CadastroPaciente.aspx</DependentUpon>
+    </Compile>
     <Compile Include="View\CadastroUsuario.aspx.cs">
       <DependentUpon>CadastroUsuario.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="View\CadastroUsuario.aspx.designer.cs">
       <DependentUpon>CadastroUsuario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\PTA_Enfermeiro.aspx.cs">
+      <DependentUpon>PTA_Enfermeiro.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\PTA_Enfermeiro.aspx.designer.cs">
+      <DependentUpon>PTA_Enfermeiro.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\PTA_Nutricao.aspx.cs">
+      <DependentUpon>PTA_Nutricao.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\PTA_Nutricao.aspx.designer.cs">
+      <DependentUpon>PTA_Nutricao.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\PTA_Psicologia.aspx.cs">
+      <DependentUpon>PTA_Psicologia.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\PTA_Psicologia.aspx.designer.cs">
+      <DependentUpon>PTA_Psicologia.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\PTA_Servico_Social.aspx.cs">
+      <DependentUpon>PTA_Servico_Social.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\PTA_Servico_Social.aspx.designer.cs">
+      <DependentUpon>PTA_Servico_Social.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\PTS.aspx.cs">
+      <DependentUpon>PTS.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\PTS.aspx.designer.cs">
+      <DependentUpon>PTS.aspx</DependentUpon>
     </Compile>
     <Compile Include="View\TelaEsqueciSenha.aspx.cs">
       <DependentUpon>TelaEsqueciSenha.aspx</DependentUpon>
@@ -104,6 +185,13 @@
     </Compile>
     <Compile Include="View\TelaPrincipal.aspx.designer.cs">
       <DependentUpon>TelaPrincipal.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\TelaRedefinirSenha.aspx.cs">
+      <DependentUpon>TelaRedefinirSenha.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\TelaRedefinirSenha.aspx.designer.cs">
+      <DependentUpon>TelaRedefinirSenha.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

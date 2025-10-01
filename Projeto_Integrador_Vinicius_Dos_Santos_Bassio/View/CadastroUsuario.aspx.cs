@@ -54,24 +54,31 @@ namespace Projeto_Integrador_Vinicius_Dos_Santos_Bassio.View
         {
             string usuario = TXTusuario.Text.Trim();
             string senha = TXTSenha.Text.Trim();
+            string email = TXTemail.Text.Trim();   // NOVO CAMPO
             string grupo = DDLGrupo.SelectedValue;
 
-            if (string.IsNullOrEmpty(usuario) || string.IsNullOrEmpty(senha) || string.IsNullOrEmpty(grupo))
+            if (string.IsNullOrEmpty(usuario) || string.IsNullOrEmpty(senha) ||
+                string.IsNullOrEmpty(email) || string.IsNullOrEmpty(grupo))
             {
                 ScriptManager.RegisterStartupScript(this, GetType(), "alert", "alert('Preencha todos os campos!');", true);
                 return;
             }
 
-            string senhaCriptografada = GerarHashSHA256(senha);
+            // Agora usando PBKDF2
+            string senhaCriptografada = GerarHashPBKDF2(senha);
 
             string connStr = ConfigurationManager.ConnectionStrings["ProjetoIntegradorConnection"].ConnectionString;
 
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-                string sql = "INSERT INTO usuario (usuario, senha, ID_GRUPO_USUARIO, criado_em, ATIVO) VALUES (@usuario, @senha, @idgrupousuario, GETDATE()), 1";
+                string sql = @"
+                    INSERT INTO usuario (usuario, email, senha, ID_GRUPO_USUARIO, criado_em, ATIVO) 
+                    VALUES (@usuario, @email, @senha, @idgrupousuario, GETDATE(), 1)";
+
                 using (SqlCommand cmd = new SqlCommand(sql, conn))
                 {
                     cmd.Parameters.AddWithValue("@usuario", usuario);
+                    cmd.Parameters.AddWithValue("@email", email);   // PARAMETRO NOVO
                     cmd.Parameters.AddWithValue("@senha", senhaCriptografada);
                     cmd.Parameters.AddWithValue("@idgrupousuario", grupo);
 
@@ -80,8 +87,10 @@ namespace Projeto_Integrador_Vinicius_Dos_Santos_Bassio.View
                         conn.Open();
                         cmd.ExecuteNonQuery();
                         ScriptManager.RegisterStartupScript(this, GetType(), "alert", "alert('Usuário cadastrado com sucesso!');", true);
+
                         TXTusuario.Text = "";
                         TXTSenha.Text = "";
+                        TXTemail.Text = "";   // LIMPA EMAIL
                         DDLGrupo.SelectedIndex = 0;
                     }
                     catch (Exception ex)
@@ -92,17 +101,21 @@ namespace Projeto_Integrador_Vinicius_Dos_Santos_Bassio.View
             }
         }
 
-        private string GerarHashSHA256(string texto)
+        // PBKDF2 - mesmo padrão usado no login e redefinição
+        private string GerarHashPBKDF2(string senha)
         {
-            using (SHA256 sha256 = SHA256.Create())
-            {
-                byte[] bytes = Encoding.UTF8.GetBytes(texto);
-                byte[] hash = sha256.ComputeHash(bytes);
-                StringBuilder sb = new StringBuilder();
-                foreach (byte b in hash)
-                    sb.Append(b.ToString("x2"));
-                return sb.ToString();
-            }
+            byte[] salt = new byte[16];
+            using (var rng = new RNGCryptoServiceProvider())
+                rng.GetBytes(salt);
+
+            var pbkdf2 = new Rfc2898DeriveBytes(senha, salt, 10000);
+            byte[] hash = pbkdf2.GetBytes(20);
+
+            byte[] hashBytes = new byte[36];
+            Array.Copy(salt, 0, hashBytes, 0, 16);
+            Array.Copy(hash, 0, hashBytes, 16, 20);
+
+            return Convert.ToBase64String(hashBytes);
         }
     }
 }
