@@ -22,7 +22,7 @@
 
                         <!-- Pacientes -->
                         <li class="nav-item">
-                            <a class="nav-link" href="Pacientes.aspx">Pacientes</a>
+                            <a class="nav-link" href="CadastroPaciente.aspx">Pacientes</a>
                         </li>
 
                         <!-- Profissionais -->
@@ -37,7 +37,7 @@
 
                         <!-- PTA -->
                         <li class="nav-item">
-                            <a class="nav-link" href="PTA.aspx">PTA</a>
+                            <a class="nav-link" href="PTA_Enfermeiro.aspx">PTA</a>
                         </li>
 
                         <!-- Administração (visível apenas para grupo permitido) -->
@@ -46,8 +46,9 @@
                                 Administração
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="dropdownAdmin">
-                                <li><h6 class="dropdown-header">Usuários</h6></li>
+                                <li><h6 class="dropdown-header">Adminstrativo</h6></li>
                                 <li><a class="dropdown-item" href="#">Listar Usuários</a></li>
+                                <li><a class="dropdown-item" href="CadastroGrupoUsuario.aspx">Cadastrar Tipo de Profissional</a></li>
                                 <li><a class="dropdown-item" href="CadastroUsuario.aspx">Cadastrar Usuário</a></li>
                                 <li><a class="dropdown-item" href="#">Editar Usuário</a></li>
                                 <li><a class="dropdown-item" href="#">Excluir Usuário</a></li>

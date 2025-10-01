@@ -42,6 +42,15 @@ namespace Projeto_Integrador_Vinicius_Dos_Santos_Bassio.View
         protected global::System.Web.UI.WebControls.TextBox TXTusuario;
 
         /// <summary>
+        /// Controle TXTemail.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TXTemail;
+
+        /// <summary>
         /// Controle TXTSenha.
         /// </summary>
         /// <remarks>
