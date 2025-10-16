@@ -25,11 +25,6 @@
                             <a class="nav-link" href="CadastroPaciente.aspx">Pacientes</a>
                         </li>
 
-                        <!-- Profissionais -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="Profissionais.aspx">Profissionais</a>
-                        </li>
-
                         <!-- PTS -->
                         <li class="nav-item">
                             <a class="nav-link" href="PTS.aspx">PTS</a>

@@ -12,6 +12,11 @@ namespace Projeto_Integrador_Vinicius_Dos_Santos_Bassio.View
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["idUsuario"] == null)
+            {
+                Response.Redirect("TelaLogin.aspx");
+                return;
+            }
             if (!IsPostBack)
             {
                 CarregarEstados(); // carrega os estados ao abrir a página
@@ -94,8 +99,6 @@ namespace Projeto_Integrador_Vinicius_Dos_Santos_Bassio.View
             string endereco = txtEndereco.Text.Trim();
             string dataNascimento = txtDataNascimento.Text.Trim();
             string sexo = rblSexo.SelectedValue;
-
-            // Captura o ID da cidade selecionada
             int cidade = string.IsNullOrEmpty(ddlCidade.SelectedValue) ? 0 : Convert.ToInt32(ddlCidade.SelectedValue);
 
             // Validação simples
@@ -103,6 +106,30 @@ namespace Projeto_Integrador_Vinicius_Dos_Santos_Bassio.View
             {
                 lblMensagem.ForeColor = System.Drawing.Color.Red;
                 lblMensagem.Text = "Preencha todos os campos obrigatórios, incluindo a Cidade.";
+                return;
+            }
+
+            // Validação de CPF
+            if (!ValidarCPF(cpf))
+            {
+                lblMensagem.ForeColor = System.Drawing.Color.Red;
+                lblMensagem.Text = "CPF inválido.";
+                return;
+            }
+
+            // Validação de e-mail
+            if (!ValidarEmail(email))
+            {
+                lblMensagem.ForeColor = System.Drawing.Color.Red;
+                lblMensagem.Text = "E-mail inválido.";
+                return;
+            }
+
+            // Validação de telefone (apenas dígitos, mínimo 10, máximo 11)
+            if (!ValidarTelefone(telefone))
+            {
+                lblMensagem.ForeColor = System.Drawing.Color.Red;
+                lblMensagem.Text = "Telefone inválido.";
                 return;
             }
 
@@ -150,6 +177,66 @@ namespace Projeto_Integrador_Vinicius_Dos_Santos_Bassio.View
             rblSexo.ClearSelection();
             ddlEstado.SelectedIndex = 0;
             ddlCidade.Items.Clear();
+        }
+
+        // Validação de CPF
+        private bool ValidarCPF(string cpf)
+        {
+            cpf = cpf.Replace(".", "").Replace("-", "");
+            if (cpf.Length != 11 || !cpf.All(char.IsDigit)) return false;
+
+            // Verifica se todos os dígitos são iguais
+            if (cpf.Distinct().Count() == 1) return false;
+
+            int[] multiplicador1 = { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
+            int[] multiplicador2 = { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
+            string tempCpf = cpf.Substring(0, 9);
+            int soma = 0;
+
+            for (int i = 0; i < 9; i++)
+                soma += int.Parse(tempCpf[i].ToString()) * multiplicador1[i];
+
+            int resto = soma % 11;
+            if (resto < 2)
+                resto = 0;
+            else
+                resto = 11 - resto;
+
+            string digito = resto.ToString();
+            tempCpf += digito;
+            soma = 0;
+            for (int i = 0; i < 10; i++)
+                soma += int.Parse(tempCpf[i].ToString()) * multiplicador2[i];
+
+            resto = soma % 11;
+            if (resto < 2)
+                resto = 0;
+            else
+                resto = 11 - resto;
+
+            digito += resto.ToString();
+            return cpf.EndsWith(digito);
+        }
+
+        // Validação de e-mail
+        private bool ValidarEmail(string email)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        // Validação de telefone (apenas dígitos, mínimo 10, máximo 11)
+        private bool ValidarTelefone(string telefone)
+        {
+            telefone = telefone.Replace("(", "").Replace(")", "").Replace("-", "").Replace(" ", "");
+            return telefone.All(char.IsDigit) && (telefone.Length == 10 || telefone.Length == 11);
         }
     }
 }

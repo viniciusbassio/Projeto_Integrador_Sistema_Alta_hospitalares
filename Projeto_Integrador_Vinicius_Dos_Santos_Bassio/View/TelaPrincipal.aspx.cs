@@ -9,6 +9,12 @@ namespace Projeto_Integrador_Vinicius_Dos_Santos_Bassio.View
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["idUsuario"] == null)
+            {
+                Response.Redirect("TelaLogin.aspx");
+                return;
+            }
+
             if (!IsPostBack)
             {
                 VerificarPermissao();
