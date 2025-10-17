@@ -24,6 +24,15 @@ namespace Projeto_Integrador_Vinicius_Dos_Santos_Bassio.View
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
+        /// Controle btnPTA.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnPTA;
+
+        /// <summary>
         /// Controle menuAdmin.
         /// </summary>
         /// <remarks>

@@ -69,12 +69,12 @@
   <ItemGroup>
     <Content Include="View\ALTA.aspx" />
     <Content Include="View\PTA_Fisioterapia.aspx" />
-    <Content Include="View\PTA_MEDICO.aspx" />
     <Content Include="View\CadastroGrupoUsuario.aspx" />
     <Content Include="View\CadastroPaciente.aspx" />
     <Content Include="View\PTA_Enfermeiro.aspx" />
     <Content Include="View\PTA_Nutricao.aspx" />
     <Content Include="View\PTA_Psicologia.aspx" />
+    <Content Include="View\PTA_ServicoSocial.aspx" />
     <Content Include="View\PTA_Servico_Social.aspx" />
     <Content Include="View\PTS.aspx" />
     <Content Include="View\TelaPrincipal.css" />
@@ -101,13 +101,6 @@
     </Compile>
     <Compile Include="View\PTA_Fisioterapia.aspx.designer.cs">
       <DependentUpon>PTA_Fisioterapia.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="View\PTA_MEDICO.aspx.cs">
-      <DependentUpon>PTA_MEDICO.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="View\PTA_MEDICO.aspx.designer.cs">
-      <DependentUpon>PTA_MEDICO.aspx</DependentUpon>
     </Compile>
     <Compile Include="View\CadastroGrupoUsuario.aspx.cs">
       <DependentUpon>CadastroGrupoUsuario.aspx</DependentUpon>
@@ -150,6 +143,13 @@
     </Compile>
     <Compile Include="View\PTA_Psicologia.aspx.designer.cs">
       <DependentUpon>PTA_Psicologia.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\PTA_ServicoSocial.aspx.cs">
+      <DependentUpon>PTA_ServicoSocial.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\PTA_ServicoSocial.aspx.designer.cs">
+      <DependentUpon>PTA_ServicoSocial.aspx</DependentUpon>
     </Compile>
     <Compile Include="View\PTA_Servico_Social.aspx.cs">
       <DependentUpon>PTA_Servico_Social.aspx</DependentUpon>
@@ -203,10 +203,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controller\" />
-    <Folder Include="Model\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
