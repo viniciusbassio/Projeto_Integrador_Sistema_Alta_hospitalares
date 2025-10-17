@@ -32,16 +32,17 @@
 
                         <!-- PTA -->
                         <li class="nav-item">
-                            <a class="nav-link" href="PTA_Enfermeiro.aspx">PTA</a>
+                            <asp:LinkButton ID="btnPTA" runat="server" CssClass="nav-link" OnClick="btnPTA_Click">PTA</asp:LinkButton>
                         </li>
 
                         <!-- Administração (visível apenas para grupo permitido) -->
                         <li id="menuAdmin" runat="server" class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="dropdownAdmin" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Administração
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdownAdmin" role="button" data-bs-toggle="dropdown" aria-expanded="false">Administração
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="dropdownAdmin">
-                                <li><h6 class="dropdown-header">Adminstrativo</h6></li>
+                                <li>
+                                    <h6 class="dropdown-header">Adminstrativo</h6>
+                                </li>
                                 <li><a class="dropdown-item" href="#">Listar Usuários</a></li>
                                 <li><a class="dropdown-item" href="CadastroGrupoUsuario.aspx">Cadastrar Tipo de Profissional</a></li>
                                 <li><a class="dropdown-item" href="CadastroUsuario.aspx">Cadastrar Usuário</a></li>
