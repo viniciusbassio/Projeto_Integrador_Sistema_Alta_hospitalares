@@ -89,7 +89,7 @@
             <!-- Botão Salvar (alinhado à direita) - mantido verde -->
             <div class="row mb-4">
                 <div class="col-md-12 text-end">
-                    <asp:Button ID="btnSalvar" runat="server" Text="Salvar PTA" CssClass="btn btn-success" OnClick="btnSalvar_Click" />
+                    <asp:Button ID="btnSalvar" runat="server" Text="Salvar PTA" CssClass="btn btn-success" />
                 </div>
             </div>
         </div>

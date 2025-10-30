@@ -18,6 +18,7 @@ namespace Projeto_Integrador_Vinicius_Dos_Santos_Bassio.View
             if (!IsPostBack)
             {
                 CarregarPaciente();
+                CarregarMedicos();
             }
         }
         private void CarregarPaciente()
@@ -89,5 +90,37 @@ namespace Projeto_Integrador_Vinicius_Dos_Santos_Bassio.View
             }
             return 0;
         }
+        private void CarregarMedicos()
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(conexao))
+                {
+                    conn.Open();
+
+                    string query = @"
+                SELECT U.ID_USUARIO, U.USUARIO
+                FROM USUARIO U
+                INNER JOIN GRUPOUSUARIO GU ON U.ID_GRUPO_USUARIO = GU.ID_GRUPO_USUARIO
+                WHERE GU.ID_GRUPO_USUARIO = 2";
+
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        ddlMedico.DataSource = reader;
+                        ddlMedico.DataTextField = "USUARIO";  // Nome exibido
+                        ddlMedico.DataValueField = "ID_USUARIO";  // Valor interno
+                        ddlMedico.DataBind();
+
+                        ddlMedico.Items.Insert(0, new ListItem("Selecione...", ""));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Erro ao carregar médicos: " + ex.Message);
+            }
+        }
+
     }
 }
