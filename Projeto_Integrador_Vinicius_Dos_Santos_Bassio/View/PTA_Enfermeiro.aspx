@@ -177,7 +177,7 @@
             <!-- Botão Salvar -->
             <div class="row mb-4">
                 <div class="col-md-12 text-end">
-                    <asp:Button ID="btnSalvar" runat="server" Text="Salvar" CssClass="btn btn-success" />
+                    <asp:Button ID="btnSalvar" runat="server" Text="Salvar" CssClass="btn btn-success" OnClick="btnSalvar_Click" />
                 </div>
             </div>
         </div>

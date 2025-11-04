@@ -186,6 +186,15 @@ namespace Projeto_Integrador_Vinicius_Dos_Santos_Bassio.View
         protected global::System.Web.UI.WebControls.CheckBox chkCuidador;
 
         /// <summary>
+        /// Controle btnSalvar.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSalvar;
+
+        /// <summary>
         /// Controle btnVoltar.
         /// </summary>
         /// <remarks>

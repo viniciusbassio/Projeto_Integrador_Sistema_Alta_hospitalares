@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="View\ALTA.aspx" />
+    <Content Include="View\ListaPacientes_Alta.aspx" />
     <Content Include="View\PTA_Fisioterapia.aspx" />
     <Content Include="View\CadastroGrupoUsuario.aspx" />
     <Content Include="View\CadastroPaciente.aspx" />
@@ -93,6 +94,13 @@
     </Compile>
     <Compile Include="View\ALTA.aspx.designer.cs">
       <DependentUpon>ALTA.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\ListaPacientes_Alta.aspx.cs">
+      <DependentUpon>ListaPacientes_Alta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\ListaPacientes_Alta.aspx.designer.cs">
+      <DependentUpon>ListaPacientes_Alta.aspx</DependentUpon>
     </Compile>
     <Compile Include="View\PTA_Fisioterapia.aspx.cs">
       <DependentUpon>PTA_Fisioterapia.aspx</DependentUpon>

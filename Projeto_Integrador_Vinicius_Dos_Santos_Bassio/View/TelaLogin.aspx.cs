@@ -25,6 +25,7 @@ namespace Projeto_Integrador_Vinicius_Dos_Santos_Bassio
         {
             string usuario = TXTusuario.Text.Trim();
             string senha = TXTSenha.Text.Trim();
+
             if (string.IsNullOrEmpty(usuario) || string.IsNullOrEmpty(senha))
             {
                 lblMensagemErro.Visible = true;
@@ -32,21 +33,25 @@ namespace Projeto_Integrador_Vinicius_Dos_Santos_Bassio
                 return;
             }
 
-            // Login fixo do admin
+            // 🔹 Login fixo do admin
             if (usuario.Equals("adm", StringComparison.OrdinalIgnoreCase) && senha == "123456")
             {
                 Session["idUsuario"] = "1";
-                Response.Redirect("TelaPrincipal.aspx");
+                Session["idGrupoUsuario"] = "2"; // assume grupo médico
+                Session["nomeUsuario"] = "Administrador";
+                Response.Redirect("TelaPrincipal.aspx", false);
+                Context.ApplicationInstance.CompleteRequest();
                 return;
             }
 
             try
             {
-                using (var conexaoSql = new System.Data.SqlClient.SqlConnection(conexao))
+                using (var conexaoSql = new SqlConnection(conexao))
                 {
                     conexaoSql.Open();
-                    string query = "SELECT id_usuario, Senha FROM Usuario WHERE Usuario = @Usuario";
-                    using (var comando = new System.Data.SqlClient.SqlCommand(query, conexaoSql))
+                    string query = "SELECT id_usuario, id_grupo_usuario, Usuario, Senha FROM Usuario WHERE Usuario = @Usuario";
+
+                    using (var comando = new SqlCommand(query, conexaoSql))
                     {
                         comando.Parameters.AddWithValue("@Usuario", usuario);
 
@@ -56,26 +61,32 @@ namespace Projeto_Integrador_Vinicius_Dos_Santos_Bassio
                             {
                                 string hashBanco = reader["Senha"].ToString();
                                 int idUsuario = Convert.ToInt32(reader["id_usuario"]);
+                                int idGrupoUsuario = Convert.ToInt32(reader["id_grupo_usuario"]);
+                                string nomeUsuario = reader["Usuario"].ToString();
 
                                 bool valido = false;
 
-                                // 1 - Tenta validar como PBKDF2
+                                // 🔸 1 - Verifica PBKDF2
                                 valido = ValidarHashPBKDF2(senha, hashBanco);
 
-                                // 2 - Se não for PBKDF2, tenta SHA256
+                                // 🔸 2 - Se não for PBKDF2, tenta SHA256 e migra
                                 if (!valido && hashBanco == GerarHashSHA256(senha))
                                 {
                                     valido = true;
-
-                                    // Migra para PBKDF2 automaticamente
                                     string novoHash = GerarHashPBKDF2(senha);
                                     AtualizarSenhaParaPBKDF2(conexaoSql, idUsuario, novoHash);
                                 }
 
                                 if (valido)
                                 {
-                                    Session["idUsuario"] = idUsuario.ToString();
-                                    Response.Redirect("TelaPrincipal.aspx");
+                                    // 🔹 Armazena informações na sessão
+                                    Session["idUsuario"] = idUsuario;
+                                    Session["idGrupoUsuario"] = idGrupoUsuario;
+                                    Session["nomeUsuario"] = nomeUsuario;
+
+                                    // 🔹 Redireciona com segurança
+                                    Response.Redirect("TelaPrincipal.aspx", false);
+                                    Context.ApplicationInstance.CompleteRequest();
                                 }
                                 else
                                 {
@@ -94,9 +105,12 @@ namespace Projeto_Integrador_Vinicius_Dos_Santos_Bassio
             }
             catch (Exception ex)
             {
+                lblMensagemErro.Visible = true;
                 lblMensagemErro.Text = "Erro ao conectar ao banco de dados: " + ex.Message;
             }
         }
+
+
         private bool ValidarHashPBKDF2(string senhaDigitada, string hashArmazenado)
         {
             try
