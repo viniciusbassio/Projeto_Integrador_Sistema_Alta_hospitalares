@@ -39,7 +39,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="PTA.aspx">PTA</a>
                         </li>
-
+                        <li class="nav-item">
+                            <a class="nav-link" href="ALTA.aspx">Alta</a>
+                        </li>
                         <!-- Administração (visível apenas para grupo permitido) -->
                         <li id="menuAdmin" runat="server" class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="dropdownAdmin" role="button" data-bs-toggle="dropdown" aria-expanded="false">Administração
@@ -95,6 +97,11 @@
                 </asp:RadioButtonList>
             </div>
 
+            <div class="mb-3">
+                <asp:Label ID="lblEsf" runat="server" Text="ESF:" CssClass="form-label"></asp:Label>
+                <asp:TextBox ID="txtEsf" runat="server" CssClass="form-control" Placeholder="ESF:"></asp:TextBox>
+            </div>
+
             <asp:ScriptManager ID="ScriptManager1" runat="server" />
 
             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
@@ -108,7 +115,6 @@
                     </div>
                 </ContentTemplate>
             </asp:UpdatePanel>
-
 
             <div class="mb-3">
                 <asp:Label ID="lblMensagem" runat="server" Text="" ForeColor="Red" CssClass="form-text"></asp:Label>

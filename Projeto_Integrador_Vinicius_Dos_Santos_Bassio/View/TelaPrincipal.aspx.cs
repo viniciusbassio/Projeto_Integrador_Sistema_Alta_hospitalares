@@ -100,8 +100,6 @@ namespace Projeto_Integrador_Vinicius_Dos_Santos_Bassio.View
                     { "enfermagem", "PTA_Enfermeiro.aspx" },
                     { "enfermeiro", "PTA_Enfermeiro.aspx" },
                     { "fisioterapia", "PTA_Fisioterapia.aspx" },
-                    { "médico", "PTA_MEDICO.aspx" },
-                    { "medico", "PTA_MEDICO.aspx" },
                     { "nutrição", "PTA_Nutricao.aspx" },
                     { "nutricao", "PTA_Nutricao.aspx" },
                     { "psicologia", "PTA_Psicologia.aspx" },

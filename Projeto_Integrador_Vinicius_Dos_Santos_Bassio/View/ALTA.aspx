@@ -150,10 +150,12 @@
             <!-- Botão Voltar / Imprimir -->
             <div class="row mb-4">
                 <div class="col-md-12 text-center">
-                    <asp:Button ID="btnVoltar" runat="server" Text="Voltar" CssClass="btn btn-primary btn-lg me-2"/>
-                    <asp:Button ID="btnImprimir" runat="server" Text="Imprimir" CssClass="btn btn-success btn-lg"/>
+                    <asp:Button ID="btnSalvar" runat="server" Text="Salvar Alta" CssClass="btn btn-success btn-lg me-2" OnClick="btnSalvar_Click" />
+                    <asp:Button ID="btnVoltar" runat="server" Text="Voltar" CssClass="btn btn-secondary btn-lg me-2" OnClick="btnVoltar_Click" />
+                    <asp:Button ID="btnImprimir" runat="server" Text="Imprimir" CssClass="btn btn-outline-primary btn-lg" />
                 </div>
             </div>
+
 
         </div>
     </form>

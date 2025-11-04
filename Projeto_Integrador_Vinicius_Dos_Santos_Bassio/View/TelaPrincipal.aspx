@@ -35,6 +35,7 @@
                             <asp:LinkButton ID="btnPTA" runat="server" CssClass="nav-link" OnClick="btnPTA_Click">PTA</asp:LinkButton>
                         </li>
 
+
                         <!-- Administração (visível apenas para grupo permitido) -->
                         <li id="menuAdmin" runat="server" class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="dropdownAdmin" role="button" data-bs-toggle="dropdown" aria-expanded="false">Administração

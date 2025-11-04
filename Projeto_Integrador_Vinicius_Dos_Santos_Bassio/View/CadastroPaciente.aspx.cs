@@ -10,6 +10,9 @@ namespace Projeto_Integrador_Vinicius_Dos_Santos_Bassio.View
 {
     public partial class CadastroPaciente : System.Web.UI.Page
     {
+        // Declaração única da connection string
+        private static readonly string conexao = System.Configuration.ConfigurationManager.ConnectionStrings["ProjetoIntegradorConnection"].ConnectionString;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["idUsuario"] == null)
@@ -17,6 +20,7 @@ namespace Projeto_Integrador_Vinicius_Dos_Santos_Bassio.View
                 Response.Redirect("TelaLogin.aspx");
                 return;
             }
+
             if (!IsPostBack)
             {
                 CarregarEstados(); // carrega os estados ao abrir a página
@@ -25,21 +29,18 @@ namespace Projeto_Integrador_Vinicius_Dos_Santos_Bassio.View
 
         private void CarregarEstados()
         {
-            string conexao = System.Configuration.ConfigurationManager.ConnectionStrings["ProjetoIntegradorConnection"].ConnectionString;
             using (SqlConnection conn = new SqlConnection(conexao))
             {
                 conn.Open();
                 string query = "SELECT Id_estado, Nome FROM Estado ORDER BY Nome";
                 using (SqlCommand cmd = new SqlCommand(query, conn))
+                using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    ddlEstado.Items.Clear();
+                    ddlEstado.Items.Add(new ListItem("Selecione...", ""));
+                    while (reader.Read())
                     {
-                        ddlEstado.Items.Clear();
-                        ddlEstado.Items.Add(new ListItem("Selecione...", ""));
-                        while (reader.Read())
-                        {
-                            ddlEstado.Items.Add(new ListItem(reader["Nome"].ToString(), reader["Id_estado"].ToString()));
-                        }
+                        ddlEstado.Items.Add(new ListItem(reader["Nome"].ToString(), reader["Id_estado"].ToString()));
                     }
                 }
             }
@@ -48,15 +49,12 @@ namespace Projeto_Integrador_Vinicius_Dos_Santos_Bassio.View
             ddlCidade.Items.Add(new ListItem("Selecione um estado primeiro...", ""));
         }
 
-        // Evento chamado quando o usuário seleciona um estado
         protected void ddlEstado_SelectedIndexChanged(object sender, EventArgs e)
         {
             int idEstado = string.IsNullOrEmpty(ddlEstado.SelectedValue) ? 0 : Convert.ToInt32(ddlEstado.SelectedValue);
 
             if (idEstado > 0)
-            {
                 CarregarCidades(idEstado);
-            }
             else
             {
                 ddlCidade.Items.Clear();
@@ -64,10 +62,8 @@ namespace Projeto_Integrador_Vinicius_Dos_Santos_Bassio.View
             }
         }
 
-        // Carrega cidades do estado selecionado
         private void CarregarCidades(int idEstado)
         {
-            string conexao = System.Configuration.ConfigurationManager.ConnectionStrings["ProjetoIntegradorConnection"].ConnectionString;
             using (SqlConnection conn = new SqlConnection(conexao))
             {
                 conn.Open();
@@ -88,10 +84,8 @@ namespace Projeto_Integrador_Vinicius_Dos_Santos_Bassio.View
             }
         }
 
-
         protected void btnCadastrar_Click(object sender, EventArgs e)
         {
-            string conexao = System.Configuration.ConfigurationManager.ConnectionStrings["ProjetoIntegradorConnection"].ConnectionString;
             string nome = txtNome.Text.Trim();
             string cpf = txtCPF.Text.Trim();
             string telefone = txtTelefone.Text.Trim();
@@ -100,6 +94,7 @@ namespace Projeto_Integrador_Vinicius_Dos_Santos_Bassio.View
             string dataNascimento = txtDataNascimento.Text.Trim();
             string sexo = rblSexo.SelectedValue;
             int cidade = string.IsNullOrEmpty(ddlCidade.SelectedValue) ? 0 : Convert.ToInt32(ddlCidade.SelectedValue);
+            string esf = txtEsf.Text.Trim();
 
             // Validação simples
             if (string.IsNullOrEmpty(nome) || string.IsNullOrEmpty(cpf) || string.IsNullOrEmpty(dataNascimento) || cidade == 0)
@@ -109,23 +104,19 @@ namespace Projeto_Integrador_Vinicius_Dos_Santos_Bassio.View
                 return;
             }
 
-            // Validação de CPF
+            // Validações adicionais
             if (!ValidarCPF(cpf))
             {
                 lblMensagem.ForeColor = System.Drawing.Color.Red;
                 lblMensagem.Text = "CPF inválido.";
                 return;
             }
-
-            // Validação de e-mail
             if (!ValidarEmail(email))
             {
                 lblMensagem.ForeColor = System.Drawing.Color.Red;
                 lblMensagem.Text = "E-mail inválido.";
                 return;
             }
-
-            // Validação de telefone (apenas dígitos, mínimo 10, máximo 11)
             if (!ValidarTelefone(telefone))
             {
                 lblMensagem.ForeColor = System.Drawing.Color.Red;
@@ -138,8 +129,12 @@ namespace Projeto_Integrador_Vinicius_Dos_Santos_Bassio.View
                 using (SqlConnection conn = new SqlConnection(conexao))
                 {
                     conn.Open();
-                    string query = @"INSERT INTO Paciente (Nome, CPF, Telefone, Email, Endereco, Data_Nascimento, Sexo, id_cidade, Criado_em)
-                             VALUES (@Nome, @CPF, @Telefone, @Email, @Endereco, @DataNascimento, @Sexo, @CidadeId, GETDATE())";
+                    string query = @"
+                INSERT INTO Paciente 
+                (Nome, CPF, Telefone, Email, Endereco, Data_Nascimento, Sexo, id_cidade, ESF, Criado_em)
+                VALUES
+                (@Nome, @CPF, @Telefone, @Email, @Endereco, @DataNascimento, @Sexo, @CidadeId, @ESF, GETDATE())";
+
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@Nome", nome);
@@ -150,6 +145,7 @@ namespace Projeto_Integrador_Vinicius_Dos_Santos_Bassio.View
                         cmd.Parameters.AddWithValue("@DataNascimento", dataNascimento);
                         cmd.Parameters.AddWithValue("@Sexo", sexo.Substring(0, 1));
                         cmd.Parameters.AddWithValue("@CidadeId", cidade);
+                        cmd.Parameters.AddWithValue("@ESF", esf);
 
                         cmd.ExecuteNonQuery();
                     }
@@ -165,7 +161,6 @@ namespace Projeto_Integrador_Vinicius_Dos_Santos_Bassio.View
             }
         }
 
-
         private void LimparCampos()
         {
             txtNome.Text = "";
@@ -179,46 +174,32 @@ namespace Projeto_Integrador_Vinicius_Dos_Santos_Bassio.View
             ddlCidade.Items.Clear();
         }
 
-        // Validação de CPF
         private bool ValidarCPF(string cpf)
         {
             cpf = cpf.Replace(".", "").Replace("-", "");
             if (cpf.Length != 11 || !cpf.All(char.IsDigit)) return false;
-
-            // Verifica se todos os dígitos são iguais
             if (cpf.Distinct().Count() == 1) return false;
 
-            int[] multiplicador1 = { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
-            int[] multiplicador2 = { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
+            int[] mult1 = { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
+            int[] mult2 = { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
             string tempCpf = cpf.Substring(0, 9);
             int soma = 0;
 
-            for (int i = 0; i < 9; i++)
-                soma += int.Parse(tempCpf[i].ToString()) * multiplicador1[i];
-
+            for (int i = 0; i < 9; i++) soma += int.Parse(tempCpf[i].ToString()) * mult1[i];
             int resto = soma % 11;
-            if (resto < 2)
-                resto = 0;
-            else
-                resto = 11 - resto;
-
+            resto = resto < 2 ? 0 : 11 - resto;
             string digito = resto.ToString();
+
             tempCpf += digito;
             soma = 0;
-            for (int i = 0; i < 10; i++)
-                soma += int.Parse(tempCpf[i].ToString()) * multiplicador2[i];
-
+            for (int i = 0; i < 10; i++) soma += int.Parse(tempCpf[i].ToString()) * mult2[i];
             resto = soma % 11;
-            if (resto < 2)
-                resto = 0;
-            else
-                resto = 11 - resto;
-
+            resto = resto < 2 ? 0 : 11 - resto;
             digito += resto.ToString();
+
             return cpf.EndsWith(digito);
         }
 
-        // Validação de e-mail
         private bool ValidarEmail(string email)
         {
             try
@@ -226,13 +207,9 @@ namespace Projeto_Integrador_Vinicius_Dos_Santos_Bassio.View
                 var addr = new System.Net.Mail.MailAddress(email);
                 return addr.Address == email;
             }
-            catch
-            {
-                return false;
-            }
+            catch { return false; }
         }
 
-        // Validação de telefone (apenas dígitos, mínimo 10, máximo 11)
         private bool ValidarTelefone(string telefone)
         {
             telefone = telefone.Replace("(", "").Replace(")", "").Replace("-", "").Replace(" ", "");

@@ -78,13 +78,13 @@ namespace Projeto_Integrador_Vinicius_Dos_Santos_Bassio.View
         protected global::System.Web.UI.WebControls.TextBox txtLeito;
 
         /// <summary>
-        /// Controle txtMedico.
+        /// Controle ddlMedico.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtMedico;
+        protected global::System.Web.UI.WebControls.DropDownList ddlMedico;
 
         /// <summary>
         /// Controle txtCRM.
