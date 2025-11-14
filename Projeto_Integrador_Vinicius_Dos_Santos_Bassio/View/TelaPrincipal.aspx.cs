@@ -12,9 +12,9 @@ namespace Projeto_Integrador_Vinicius_Dos_Santos_Bassio.View
         private static readonly string connectionString =
             ConfigurationManager.ConnectionStrings["ProjetoIntegradorConnection"].ConnectionString;
 
-        // ============================
+        
         // GRUPOS – NORMALIZADOS
-        // ============================
+        
         private static readonly HashSet<string> gruposPTA = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
         {
             "enfermagem", "fisioterapia", "nutrição", "nutricao",
@@ -48,9 +48,7 @@ namespace Projeto_Integrador_Vinicius_Dos_Santos_Bassio.View
             }
         }
 
-        // ===============================
         // Obter grupo
-        // ===============================
         private string ObterGrupoUsuario(int idUsuario)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -73,9 +71,6 @@ namespace Projeto_Integrador_Vinicius_Dos_Santos_Bassio.View
             }
         }
 
-        // ===============================
-        // Obter nome do usuário
-        // ===============================
         private string ObterNomeUsuario(int idUsuario)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -94,9 +89,9 @@ namespace Projeto_Integrador_Vinicius_Dos_Santos_Bassio.View
             }
         }
 
-        // ===============================
+       
         // Contador para dashboard
-        // ===============================
+        
         private int Contar(string sql)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -112,9 +107,9 @@ namespace Projeto_Integrador_Vinicius_Dos_Santos_Bassio.View
             }
         }
 
-        // ===============================
-        // VISIBILIDADE DOS MENUS – CORRIGIDO
-        // ===============================
+        
+        // VISIBILIDADE DOS MENUS 
+
         private void ConfigurarInterfaceUsuario()
         {
             if (!int.TryParse(Session["idUsuario"]?.ToString(), out int idUsuario))
@@ -164,16 +159,15 @@ namespace Projeto_Integrador_Vinicius_Dos_Santos_Bassio.View
             }
         }
 
-        // ===============================
+        
         // Botões
-        // ===============================
+        
         protected void btnPTA_Click(object sender, EventArgs e) => RedirecionarPorGrupo("PTA");
         protected void btnPTS_Click(object sender, EventArgs e) => RedirecionarPorGrupo("PTS");
         protected void btnAlta_Click(object sender, EventArgs e) => RedirecionarPorGrupo("ALTA");
 
-        // ===============================
-        // REDIRECIONAMENTO CORRIGIDO
-        // ===============================
+        // REDIRECIONAMENTO
+        
         private void RedirecionarPorGrupo(string tipo)
         {
             if (!int.TryParse(Session["idUsuario"]?.ToString(), out int idUsuario))
